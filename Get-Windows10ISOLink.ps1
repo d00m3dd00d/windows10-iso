@@ -28,9 +28,14 @@ function Get-Win10ISOLink {
 		[Parameter(Mandatory=$false)] 
         [ValidateSet("Yes","No")]
         [String] $DownloadISOFile = "No",
-		[Parameter(Mandatory=$true)]
-		[ValidateScript({Test-Path $Output-Location})]
-		[String] $Output-Path = $pwd
+		[Parameter(Mandatory=$false)]
+        [ValidateScript({
+            if( -Not ($_ | Test-Path) ){
+                throw "File or folder does not exist"
+            }
+            return $true
+        })]
+        [System.IO.FileInfo]$OutputLocation
     )
     
     # prefered architecture
@@ -109,10 +114,11 @@ function Get-Win10ISOLink {
     $dlLink = $clean | Where-Object {$_ -like "*$archID*"}
 
     # outputs download link
-    Write-Output $dlLink
+    Write-Output Download link for Windows: $dlLink
 	
 	# Downloads the link
 	if ($DownloadISOFile -eq "Yes") {
-		Start-BitsTransfer -Source $dlLink -Destination $Output-Location\Windows10$archid.iso
+        Write-Output Downloading ISO from link....
+		Start-BitsTransfer -Source $dlLink -Destination $OutputLocation\Windows10$archid.iso
 	}
 }
