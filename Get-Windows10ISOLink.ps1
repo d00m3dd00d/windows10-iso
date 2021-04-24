@@ -25,6 +25,11 @@ function Get-Win10ISOLink {
         [Parameter(Mandatory=$false)] 
         [ValidateSet("1909", "Latest")]
         [String] $Version = "Latest"
+		[Parameter(Mandatory=$false)] 
+        [ValidateSet("Yes","No")]
+        [String] $DownloadISOFile = "No"
+		[Parameter(Mandatory=$true)]
+		[ValidateScript({Test-Path $Output-Location})
     )
     
     # prefered architecture
@@ -74,6 +79,7 @@ function Get-Win10ISOLink {
         $skuIDs = (($response.RawContent) -replace "&quot;" -replace '</div><script language=.*' -replace  '</select></div>.*' -split '<option value="' -replace '">.*' -replace '{' -replace '}'| Select-String -pattern 'id:') -replace 'id:' -replace 'language:' -replace '\s' | ConvertFrom-String -PropertyNames SkuID, Language -Delimiter ','
         $skuID = $skuIDs | Where-Object {$_.Language -eq "$Language"} | Select-Object -ExpandProperty SkuID
     }
+
     else{
         # uses hard-coded id
         $skuID = "9029"
@@ -103,4 +109,9 @@ function Get-Win10ISOLink {
 
     # outputs download link
     Write-Output $dlLink
+	
+	# Downloads the link
+	if ($DownloadISOFile -eq "Yes") {
+		Start-BitsTransfer -Source $dlLink -Destination $Output-Location\Windows10$archid.iso
+	}
 }
