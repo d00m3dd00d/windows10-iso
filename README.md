@@ -1,6 +1,6 @@
 # Windows 10 ISO Powershell Functions
 
-Branched from https://github.com/aescolastico/windows10-iso
+Branched from https://github.com/aescolastico/windows10-iso - this version is designed for additionally handling the file transfer from argument.
 
 Get-Win10ISOLink:
 This function spoofs a request from a non windows device in order generate a windows 10 ISO link. It leverages MSFTs internal APIs and hardcoded IDs to generate the link.
