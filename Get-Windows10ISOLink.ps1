@@ -25,11 +25,11 @@ function Get-Win10ISOLink {
         [Parameter(Mandatory=$false)] 
         [ValidateSet("1909", "Latest")]
         [String] $Version = "Latest"
-		[Parameter(Mandatory=$false)] 
+	[Parameter(Mandatory=$false)] 
         [ValidateSet("Yes","No")]
         [String] $DownloadISOFile = "No"
-		[Parameter(Mandatory=$true)]
-		[ValidateScript({Test-Path $Output-Location})]
+	[Parameter(Mandatory=$true)]
+	[ValidateScript({Test-Path $Output-Location})]
     )
     
     # prefered architecture
