@@ -24,10 +24,10 @@ function Get-Win10ISOLink {
         [String] $Language = "English",
         [Parameter(Mandatory=$false)] 
         [ValidateSet("1909", "Latest")]
-        [String] $Version = "Latest"
+        [String] $Version = "Latest",
 		[Parameter(Mandatory=$false)] 
         [ValidateSet("Yes","No")]
-        [String] $DownloadISOFile = "No"
+        [String] $DownloadISOFile = "No",
 		[Parameter(Mandatory=$true)]
 		[ValidateScript({Test-Path $Output-Location})]
 		[String] $Output-Path = $pwd
