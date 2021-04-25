@@ -119,6 +119,6 @@ function Get-Win10ISOLink {
 	# Downloads the link
 	if ($DownloadISOFile -eq "Yes") {
         Write-Output Downloading ISO from link....
-		Start-BitsTransfer -Source $dlLink -Destination $OutputLocation\Windows10$archid.iso
+		Start-BitsTransfer -Source $dlLink -Destination $OutputLocation\Windows10.iso
 	}
 }
